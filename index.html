@@ -24,4 +24,51 @@ const now=new Date(),day=Math.floor(Date.UTC(now.getFullYear(),now.getMonth(),no
 for(const [key,items] of Object.entries(topics)){const el=document.getElementById('daily-'+key);if(el)el.textContent=items[day%items.length]}
 })();
 </script>
-<script src="script.js?v=20"></script></body></html>
+<script src="script.js?v=20"></script>
+<script>
+/* Daily learning questions with accessible click-to-reveal answers. */
+(function () {
+const lessons = {
+realestate: [
+["What is an inspection contingency?","An inspection contingency gives a buyer a contract-defined opportunity to inspect the property and request repairs, negotiate, or cancel if permitted by the agreement. Deadlines and rights depend on the signed contract."],
+["How does earnest money work?","Earnest money is a good-faith deposit toward the purchase. It is generally held in escrow and credited at closing. Whether it is refundable depends on the contract and applicable contingencies."],
+["What should sellers prepare before listing?","Gather property records, permits, utility information, warranties, and known repair details. Declutter, address obvious maintenance, and review pricing and marketing with your agent."],
+["How is an appraisal different from an inspection?","An appraisal estimates a property's value, often for a lender. A home inspection evaluates its physical condition and flags items that may need repair or further evaluation."],
+["What closing costs should buyers expect?","Buyers may pay lender charges, appraisal, title and settlement fees, prepaid taxes, insurance, and escrow deposits. Ask your lender for a personalized Loan Estimate."],
+["What does selling as-is mean?","An as-is sale generally means the seller is not promising repairs, but it does not automatically eliminate required disclosures or a buyer's contractual inspection rights."],
+["How does a comparative market analysis work?","A comparative market analysis reviews similar recently sold, active, and pending homes, adjusting for differences in condition, location, and features to help guide a listing price."]
+],
+mortgage: [
+["What is mortgage preapproval?","Preapproval is a lender's preliminary review of income, assets, credit, and debts to estimate borrowing eligibility. It is not a final loan commitment."],
+["What are the basics of FHA loans?","FHA loans are insured by the Federal Housing Administration and have program-specific down payment, mortgage insurance, property, and borrower requirements. Confirm current terms with a licensed lender."],
+["What are the basics of VA loans?","Eligible veterans, service members, and certain surviving spouses may qualify for VA-backed mortgages. Benefits can include no required down payment for some borrowers; funding fees and other conditions may apply."],
+["What is debt-to-income ratio?","Debt-to-income ratio compares monthly debt payments with gross monthly income. Lenders use it alongside credit, assets, and other factors when evaluating affordability."],
+["What should you compare on a Loan Estimate?","Compare interest rate, APR, estimated monthly payment, lender fees, closing costs, cash needed to close, and whether the rate is locked."],
+["Fixed versus adjustable mortgage rates","A fixed-rate mortgage keeps the same interest rate over the loan term. An adjustable-rate mortgage may change after its initial fixed period, changing the payment."],
+["What documents does a lender need?","Common requests include pay stubs, W-2s or tax returns, bank statements, identification, and documentation of other income or assets. Requirements vary by borrower and loan program."]
+],
+credit: [
+["What appears on a credit report?","A credit report can show identifying details, credit accounts, payment history, balances, inquiries, and certain public records. It is not the same as a credit score."],
+["Why do on-time payments matter?","Payment history is an important credit-scoring factor. Paying at least the required minimum by the due date helps avoid new late-payment marks."],
+["What is credit utilization?","Credit utilization is the portion of available revolving credit currently in use. For example, a $500 balance on a $2,000 limit is 25% utilization."],
+["How do you dispute credit report errors?","Identify the inaccurate item, gather supporting records, and submit a dispute to the credit bureau and, when appropriate, the company reporting it. Keep copies of your correspondence."],
+["How often should you review your credit reports?","Check your reports regularly and before major borrowing decisions. You can access free reports through AnnualCreditReport.com."],
+["Hard versus soft credit inquiries","A hard inquiry generally happens when you apply for credit and may affect scores. A soft inquiry, such as checking your own credit, does not affect your score."],
+["Why is a realistic repayment plan important?","A manageable plan helps you make payments on time, control interest costs, and avoid taking on debt that strains your budget."]
+]
+};
+const date=new Date(),day=Math.floor(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())/86400000);
+for(const [category,entries] of Object.entries(lessons)){
+const question=document.getElementById('daily-'+category);if(!question)continue;
+const [prompt,answer]=entries[day%entries.length];question.textContent=prompt;
+let details=document.getElementById('answer-'+category);
+if(!details){details=document.createElement('details');details.id='answer-'+category;details.className='daily-answer';question.insertAdjacentElement('afterend',details);}
+details.replaceChildren();
+const summary=document.createElement('summary');summary.textContent='Reveal Answer';
+const explanation=document.createElement('p');explanation.textContent=answer;
+details.append(summary,explanation);
+details.addEventListener('toggle',()=>{summary.textContent=details.open?'Hide Answer':'Reveal Answer';});
+}
+})();
+</script>
+</body></html>
